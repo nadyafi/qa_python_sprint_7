@@ -39,11 +39,12 @@ def register_new_courier_and_return_login_password():
     return login_pass
 
 
-def generate_unregistered_courier():
-    def generate_string(length):
-        random_string = ''.join(random.choices(string.ascii_lowercase, k=length))
-        return random_string
+def generate_string(length):
+    random_string = ''.join(random.choices(string.ascii_lowercase, k=length))
+    return random_string
 
+
+def generate_unregistered_courier():
     courier_data = []
     while len(courier_data) != 3:
         courier_data.append(generate_string(8))
