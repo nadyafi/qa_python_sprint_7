@@ -4,12 +4,13 @@ import string
 from data import URL
 
 
+# метод генерирует строку, состоящую только из букв нижнего регистра, в качестве параметра передаём длину строки
+def generate_random_string(length):
+    random_string = ''.join(random.choices(string.ascii_lowercase, k=length))
+    return random_string
+
+
 def register_new_courier_and_return_login_password():
-    # метод генерирует строку, состоящую только из букв нижнего регистра, в качестве параметра передаём длину строки
-    def generate_random_string(length):
-        letters = string.ascii_lowercase
-        random_string = ''.join(random.choice(letters) for i in range(length))
-        return random_string
 
     # создаём список, чтобы метод мог его вернуть
     login_pass = []
@@ -39,15 +40,10 @@ def register_new_courier_and_return_login_password():
     return login_pass
 
 
-def generate_string(length):
-    random_string = ''.join(random.choices(string.ascii_lowercase, k=length))
-    return random_string
-
-
 def generate_unregistered_courier():
     courier_data = []
     while len(courier_data) != 3:
-        courier_data.append(generate_string(8))
+        courier_data.append(generate_random_string(8))
     return courier_data
 
 
