@@ -45,18 +45,3 @@ def generate_unregistered_courier():
     while len(courier_data) != 3:
         courier_data.append(generate_random_string(8))
     return courier_data
-
-
-def new_courier():
-    login, password, first_name = register_new_courier_and_return_login_password()
-    courier = {
-        'login': login,
-        'password': password
-    }
-    return courier
-
-
-def non_existing_courier():
-    response = requests.post(URL.LOGIN, data=new_courier())
-    courier_id = response.json()["id"] + random.randint(1, 999)
-    return courier_id
