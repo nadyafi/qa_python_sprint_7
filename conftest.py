@@ -2,12 +2,12 @@ import pytest
 import requests
 
 from data import URL
-import base_page
+import helpers
 
 
 @pytest.fixture
 def unregistered_courier():
-    login, password, first_name = base_page.generate_unregistered_courier()
+    login, password, first_name = helpers.generate_unregistered_courier()
     payload = {
         'login': login,
         'password': password,
@@ -24,7 +24,7 @@ def unregistered_courier():
 
 @pytest.fixture
 def registered_courier():
-    login, password, first_name = base_page.register_new_courier_and_return_login_password()
+    login, password, first_name = helpers.register_new_courier_and_return_login_password()
     payload = {
         'login': login,
         'password': password

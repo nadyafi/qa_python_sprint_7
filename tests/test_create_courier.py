@@ -1,6 +1,6 @@
 import requests
-from data import URL
-import base_page
+from data import URL, Answers
+import helpers
 import pytest
 import allure
 
@@ -21,13 +21,13 @@ class TestCreateCourier:
         requests.post(URL.COURIER, data=payload)
         response_1 = requests.post(URL.COURIER, data=payload)
         assert response_1.status_code == 409 and response_1.json().get('message') \
-               == "Этот логин уже используется. Попробуйте другой."
+               == Answers.DUPLICATE_LOGIN
 
     @allure.title('Проверка обязательных полей при создании курьера')
     @allure.description('Тест при отсутствии обязательных полей при создании курьера')
     @pytest.mark.parametrize('missing_field', ['login', 'password'])
     def test_required_fields(self, missing_field):
-        login, password, first_name = base_page.generate_unregistered_courier()
+        login, password, first_name = helpers.generate_unregistered_courier()
         payload = {
             'login': login,
             'password': password,
@@ -35,4 +35,4 @@ class TestCreateCourier:
         }
         del payload[missing_field]
         response = requests.post(URL.COURIER, data=payload)
-        assert response.status_code == 400 and response.json().get('message') == "Недостаточно данных для создания учетной записи"
+        assert response.status_code == 400 and response.json().get('message') == Answers.LITTLE_DATA_FOR_CREATE
